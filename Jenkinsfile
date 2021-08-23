@@ -1,15 +1,22 @@
-#!/usr/bin/env groovy
+pipeline {
+    agent any
 
-/* `buildPlugin` step provided by: https://github.com/jenkins-infra/pipeline-library */
-buildPlugin(useAci: true, configurations: [
-  // Test the long-term support end of the compatibility spectrum (i.e., the minimum required
-  // Jenkins version).
-  [ platform: 'linux', jdk: '8', jenkins: null ],
+    stages {
+        stage("Build") {
+            steps {
+                script {
+                    withMaven(jdk: '1.8.0_221', maven: 'maven-3.5.0') {
+                        mvn clean package
+                    }
+                }
+            }
+        }
+    }
 
-  // Test the common case (i.e., a recent LTS release) on both Linux and Windows.
-  [ platform: 'linux', jdk: '8', jenkins: '2.277.1' ],
-  [ platform: 'windows', jdk: '8', jenkins: '2.277.1' ],
-
-  // Test the bleeding edge of the compatibility spectrum (i.e., the latest supported Java runtime).
-  [ platform: 'linux', jdk: '11', jenkins: '2.277.1' ],
-])
+    post {
+        success {
+            archiveArtifacts artifacts: '*.hpi'
+            archiveArtifacts artifacts: '*.jar'
+        }
+    }
+}
