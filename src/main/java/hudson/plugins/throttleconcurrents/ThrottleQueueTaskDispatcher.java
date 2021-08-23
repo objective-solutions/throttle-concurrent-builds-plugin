@@ -24,6 +24,7 @@ import hudson.security.ACL;
 import hudson.security.ACLContext;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -243,16 +244,16 @@ public class ThrottleQueueTaskDispatcher extends QueueTaskDispatcher {
                     }
                 }
             } else if (tjp.getThrottleOption().equals("category")) {
-                return throttleCheckForCategoriesAllNodes(jenkins, tjp.getCategories());
+                return throttleCheckForCategoriesAllNodes(jenkins, tjp.getCategories(), tjp);
             }
         } else if (!pipelineCategories.isEmpty()) {
-            return throttleCheckForCategoriesAllNodes(jenkins, pipelineCategories);
+            return throttleCheckForCategoriesAllNodes(jenkins, pipelineCategories, null);
         }
 
         return null;
     }
 
-    private CauseOfBlockage throttleCheckForCategoriesAllNodes(Jenkins jenkins, @NonNull List<String> categories) {
+    private CauseOfBlockage throttleCheckForCategoriesAllNodes(Jenkins jenkins, @NonNull List<String> categories, ThrottleJobProperty tjp) {
         for (String catNm : categories) {
             // Quick check that catNm itself is a real string.
             if (catNm != null && !catNm.equals("")) {
@@ -260,6 +261,14 @@ public class ThrottleQueueTaskDispatcher extends QueueTaskDispatcher {
 
                 ThrottleJobProperty.ThrottleCategory category =
                         ThrottleJobProperty.fetchDescriptor().getCategoryByName(catNm);
+
+                if (category == null && tjp != null && tjp.getDynamicCategory()) {
+                    category = new ThrottleJobProperty.ThrottleCategory(
+                            catNm,
+                            tjp.getMaxConcurrentPerNode(),
+                            tjp.getMaxConcurrentTotal(),
+                            Collections.emptyList());
+                }
 
                 // Double check category itself isn't null
                 if (category != null) {

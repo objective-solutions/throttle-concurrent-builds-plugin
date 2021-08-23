@@ -148,7 +148,7 @@ public class ThrottleJobPropertyFreestyleTest {
                         TestUtil.THROTTLE_OPTION_CATEGORY, // throttleOption
                         false,
                         null,
-                        ThrottleMatrixProjectOptions.DEFAULT));
+                        ThrottleMatrixProjectOptions.DEFAULT, false));
         SequenceLock firstJobSeq = new SequenceLock();
         firstJob.getBuildersList().add(new SequenceLockBuilder(firstJobSeq));
 
@@ -166,7 +166,7 @@ public class ThrottleJobPropertyFreestyleTest {
                         TestUtil.THROTTLE_OPTION_CATEGORY, // throttleOption
                         false,
                         null,
-                        ThrottleMatrixProjectOptions.DEFAULT));
+                        ThrottleMatrixProjectOptions.DEFAULT, false));
         SequenceLock secondJobSeq = new SequenceLock();
         secondJob.getBuildersList().add(new SequenceLockBuilder(secondJobSeq));
 
@@ -214,7 +214,7 @@ public class ThrottleJobPropertyFreestyleTest {
                         TestUtil.THROTTLE_OPTION_CATEGORY, // throttleOption
                         false,
                         null,
-                        ThrottleMatrixProjectOptions.DEFAULT));
+                        ThrottleMatrixProjectOptions.DEFAULT, false));
         SequenceLock firstJobSeq = new SequenceLock();
         firstJob.getBuildersList().add(new SequenceLockBuilder(firstJobSeq));
 
@@ -232,7 +232,7 @@ public class ThrottleJobPropertyFreestyleTest {
                         TestUtil.THROTTLE_OPTION_CATEGORY, // throttleOption
                         false,
                         null,
-                        ThrottleMatrixProjectOptions.DEFAULT));
+                        ThrottleMatrixProjectOptions.DEFAULT, false));
         SequenceLock secondJobSeq = new SequenceLock();
         secondJob.getBuildersList().add(new SequenceLockBuilder(secondJobSeq));
 
@@ -250,7 +250,7 @@ public class ThrottleJobPropertyFreestyleTest {
                         TestUtil.THROTTLE_OPTION_CATEGORY, // throttleOption
                         false,
                         null,
-                        ThrottleMatrixProjectOptions.DEFAULT));
+                        ThrottleMatrixProjectOptions.DEFAULT, false));
         SequenceLock thirdJobSeq = new SequenceLock();
         thirdJob.getBuildersList().add(new SequenceLockBuilder(thirdJobSeq));
 
@@ -308,7 +308,7 @@ public class ThrottleJobPropertyFreestyleTest {
                         TestUtil.THROTTLE_OPTION_PROJECT, // throttleOption
                         true,
                         "FOO,BAR",
-                        ThrottleMatrixProjectOptions.DEFAULT));
+                        ThrottleMatrixProjectOptions.DEFAULT, false));
         SequenceLock firstRunSeq = new SequenceLock();
         SequenceLock secondRunSeq = new SequenceLock();
         project.getBuildersList().add(new SequenceLockBuilder(firstRunSeq, secondRunSeq));
@@ -364,7 +364,7 @@ public class ThrottleJobPropertyFreestyleTest {
                         TestUtil.THROTTLE_OPTION_CATEGORY, // throttleOption
                         false, // limitOneJobWithMatchingParams
                         null, // paramsToUse for the previous flag
-                        ThrottleMatrixProjectOptions.DEFAULT));
+                        ThrottleMatrixProjectOptions.DEFAULT, false));
         p1.getBuildersList().add(new SequenceLockBuilder(seq1));
 
         Folder f2 = j.createProject(Folder.class, "folder2");
@@ -380,7 +380,7 @@ public class ThrottleJobPropertyFreestyleTest {
                         TestUtil.THROTTLE_OPTION_CATEGORY, // throttleOption
                         false, // limitOneJobWithMatchingParams
                         null, // paramsToUse for the previous flag
-                        ThrottleMatrixProjectOptions.DEFAULT));
+                        ThrottleMatrixProjectOptions.DEFAULT, false));
         p2.getBuildersList().add(new SequenceLockBuilder(seq2));
 
         FreeStyleBuild b1 = p1.scheduleBuild2(0).waitForStart();

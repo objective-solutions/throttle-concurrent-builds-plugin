@@ -80,7 +80,7 @@ public class ThrottleJobPropertyPipelineRestartTest {
                                     TestUtil.THROTTLE_OPTION_CATEGORY, // throttleOption
                                     false,
                                     null,
-                                    ThrottleMatrixProjectOptions.DEFAULT));
+                                    ThrottleMatrixProjectOptions.DEFAULT, false));
 
                     WorkflowRun firstJobFirstRun = firstJob.scheduleBuild2(0).waitForStart();
                     SemaphoreStep.waitForStart("wait-first-job/1", firstJobFirstRun);
@@ -99,7 +99,7 @@ public class ThrottleJobPropertyPipelineRestartTest {
                                     TestUtil.THROTTLE_OPTION_CATEGORY, // throttleOption
                                     false,
                                     null,
-                                    ThrottleMatrixProjectOptions.DEFAULT));
+                                    ThrottleMatrixProjectOptions.DEFAULT, false));
 
                     WorkflowRun secondJobFirstRun = secondJob.scheduleBuild2(0).waitForStart();
                     SemaphoreStep.waitForStart("wait-second-job/1", secondJobFirstRun);
@@ -116,7 +116,7 @@ public class ThrottleJobPropertyPipelineRestartTest {
                                     TestUtil.THROTTLE_OPTION_CATEGORY, // throttleOption
                                     false,
                                     null,
-                                    ThrottleMatrixProjectOptions.DEFAULT));
+                                    ThrottleMatrixProjectOptions.DEFAULT, false));
 
                     thirdJob.scheduleBuild2(0);
                     j.jenkins.getQueue().maintain();

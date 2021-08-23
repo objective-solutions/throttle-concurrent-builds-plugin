@@ -61,6 +61,7 @@ public class ThrottleJobProperty extends JobProperty<Job<?,?>> {
     private boolean limitOneJobWithMatchingParams;
     private transient boolean throttleConfiguration;
     private @CheckForNull ThrottleMatrixProjectOptions matrixOptions;
+    private boolean dynamicCategory;
 
     // The paramsToUseForLimit is assigned by end-user configuration and
     // is generally a string with names of build arguments to consider,
@@ -91,8 +92,8 @@ public class ThrottleJobProperty extends JobProperty<Job<?,?>> {
                                String throttleOption,
                                boolean limitOneJobWithMatchingParams,
                                String paramsToUseForLimit,
-                               @CheckForNull ThrottleMatrixProjectOptions matrixOptions
-                               ) {
+                               @CheckForNull ThrottleMatrixProjectOptions matrixOptions,
+                               boolean dynamicCategory) {
         this.maxConcurrentPerNode = maxConcurrentPerNode;
         this.maxConcurrentTotal = maxConcurrentTotal;
         this.categories = categories == null ?
@@ -104,6 +105,7 @@ public class ThrottleJobProperty extends JobProperty<Job<?,?>> {
         this.matrixOptions = matrixOptions;
         this.paramsToUseForLimit = paramsToUseForLimit;
         this.paramsToCompare = parseParamsToUseForLimit(this.paramsToUseForLimit);
+        this.dynamicCategory = dynamicCategory;
     }
 
     /**
@@ -222,6 +224,10 @@ public class ThrottleJobProperty extends JobProperty<Job<?,?>> {
             paramsToCompare = parseParamsToUseForLimit(paramsToUseForLimit);
         }
         return paramsToCompare;
+    }
+
+    public boolean getDynamicCategory() {
+        return dynamicCategory;
     }
 
     /**

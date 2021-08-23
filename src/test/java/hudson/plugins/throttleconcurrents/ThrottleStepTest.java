@@ -401,7 +401,7 @@ public class ThrottleStepTest {
                         TestUtil.THROTTLE_OPTION_CATEGORY, // throttleOption
                         false,
                         null,
-                        ThrottleMatrixProjectOptions.DEFAULT));
+                        ThrottleMatrixProjectOptions.DEFAULT, false));
         freeStyleProject.setAssignedLabel(Label.get(agent.getNodeName()));
         freeStyleProject
                 .getBuildersList()

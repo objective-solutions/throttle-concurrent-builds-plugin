@@ -75,7 +75,7 @@ public class ThrottleJobPropertyPipelineTest {
                         TestUtil.THROTTLE_OPTION_CATEGORY, // throttleOption
                         false,
                         null,
-                        ThrottleMatrixProjectOptions.DEFAULT));
+                        ThrottleMatrixProjectOptions.DEFAULT, false));
 
         WorkflowRun firstJobFirstRun = firstJob.scheduleBuild2(0).waitForStart();
         SemaphoreStep.waitForStart("wait-first-job/1", firstJobFirstRun);
@@ -91,7 +91,7 @@ public class ThrottleJobPropertyPipelineTest {
                         TestUtil.THROTTLE_OPTION_CATEGORY, // throttleOption
                         false,
                         null,
-                        ThrottleMatrixProjectOptions.DEFAULT));
+                        ThrottleMatrixProjectOptions.DEFAULT, false));
 
         WorkflowRun secondJobFirstRun = secondJob.scheduleBuild2(0).waitForStart();
         j.waitForMessage("Still waiting to schedule task", secondJobFirstRun);
@@ -138,7 +138,7 @@ public class ThrottleJobPropertyPipelineTest {
                         TestUtil.THROTTLE_OPTION_CATEGORY, // throttleOption
                         false,
                         null,
-                        ThrottleMatrixProjectOptions.DEFAULT));
+                        ThrottleMatrixProjectOptions.DEFAULT, false));
 
         WorkflowRun firstJobFirstRun = firstJob.scheduleBuild2(0).waitForStart();
         SemaphoreStep.waitForStart("wait-first-job/1", firstJobFirstRun);
@@ -154,7 +154,7 @@ public class ThrottleJobPropertyPipelineTest {
                         TestUtil.THROTTLE_OPTION_CATEGORY, // throttleOption
                         false,
                         null,
-                        ThrottleMatrixProjectOptions.DEFAULT));
+                        ThrottleMatrixProjectOptions.DEFAULT, false));
 
         WorkflowRun secondJobFirstRun = secondJob.scheduleBuild2(0).waitForStart();
         SemaphoreStep.waitForStart("wait-second-job/1", secondJobFirstRun);
@@ -170,7 +170,7 @@ public class ThrottleJobPropertyPipelineTest {
                         TestUtil.THROTTLE_OPTION_CATEGORY, // throttleOption
                         false,
                         null,
-                        ThrottleMatrixProjectOptions.DEFAULT));
+                        ThrottleMatrixProjectOptions.DEFAULT, false));
 
         QueueTaskFuture<WorkflowRun> thirdJobFirstRunFuture = thirdJob.scheduleBuild2(0);
         j.jenkins.getQueue().maintain();
@@ -230,7 +230,7 @@ public class ThrottleJobPropertyPipelineTest {
                         TestUtil.THROTTLE_OPTION_PROJECT, // throttleOption
                         true,
                         "FOO,BAR",
-                        ThrottleMatrixProjectOptions.DEFAULT));
+                        ThrottleMatrixProjectOptions.DEFAULT, false));
 
         WorkflowRun firstRun = project.scheduleBuild2(0).waitForStart();
         SemaphoreStep.waitForStart("wait-" + project.getName() + "-job/1", firstRun);
