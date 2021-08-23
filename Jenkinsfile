@@ -4,10 +4,8 @@ pipeline {
     stages {
         stage("Build") {
             steps {
-                script {
-                    withMaven(jdk: '1.8.0_221', maven: 'maven-3.5.0') {
-                        mvn clean package
-                    }
+                withMaven(jdk: '1.8.0_221', maven: 'maven-3.5.0') {
+                    mvn clean package
                 }
             }
         }
