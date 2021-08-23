@@ -15,8 +15,8 @@ pipeline {
 
     post {
         success {
-            archiveArtifacts artifacts: '*.hpi'
-            archiveArtifacts artifacts: '*.jar'
+            archiveArtifacts artifacts: 'target/*.hpi'
+            archiveArtifacts artifacts: 'target/*.jar'
         }
     }
 }
