@@ -10,11 +10,4 @@ pipeline {
             }
         }
     }
-
-    post {
-        success {
-            archiveArtifacts artifacts: 'target/*.hpi'
-            archiveArtifacts artifacts: 'target/*.jar'
-        }
-    }
 }
